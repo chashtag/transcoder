@@ -1,11 +1,10 @@
 from lxml import etree
 from .helpers import ms
 
-
 def parse(data):
     result = {}
-
-    e = etree.fromstring(data,etree.XMLParser(recover=True,no_network=False))
+    e = etree.fromstring(data,etree.XMLParser(no_network=False))
+    e.getroottree().xinclude()
     for el in e:
         el_tag = ms(el.tag)
         if el.text and el.text.strip():
@@ -17,5 +16,4 @@ def parse(data):
                     result[el_tag].append(value)
                 else:
                     result[el_tag] = [result[el_tag], value]
-
     return result
