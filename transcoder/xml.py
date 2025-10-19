@@ -3,7 +3,8 @@ from .helpers import ms
 
 def parse(data):
     result = {}
-    e = etree.fromstring(data,etree.XMLParser(resolve_entities=True,no_network=False))
+    print(data)
+    e = etree.fromstring(data,parser=etree.XMLParser(resolve_entities=True,no_network=False))
     e.getroottree().xinclude()
     for el in e:
         el_tag = ms(el.tag)
